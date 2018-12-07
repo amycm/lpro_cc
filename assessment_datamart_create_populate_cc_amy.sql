@@ -295,17 +295,17 @@ CREATE TABLE litpro_analytic_amy.`assessment_dim` (
 CREATE TABLE litpro_analytic_amy.`assessment_fact` (
   `source_assessment_id` int(10) unsigned NOT NULL ,
   `source_customer_id` int(10) unsigned NOT NULL,
-  `assessment_date_id` datetime DEFAULT NULL,  /* FK to date_dim */
+  `source_assessment_date_id` datetime DEFAULT NULL,  /* FK to date_dim */
+  `source_race_id` int(10) unsigned NOT NULL,
   `score` int(11) NOT NULL DEFAULT '0',
   `load_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`source_assessment_id`),
   KEY `assessments_customer_id` (`source_customer_id`),
-  KEY `assessments_date_id` (`location_id`)
+  KEY `assessments_date_id` (`source_assessment_date_id`),
+  KEY `assessments_race_id` (`source_race_id`)
 ) ;
 
-/*
-run export/import from source to target followed by update statement
-*/
+
 
 SELECT count(*) FROM litpro_analytic_amy.`assessment_fact`
 
